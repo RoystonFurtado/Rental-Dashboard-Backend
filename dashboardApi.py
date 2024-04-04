@@ -45,15 +45,17 @@ def getCompetitorRates():
                 # print("Rent:",rent[-1])
                 count+=1
         if count==1:
-            competitorRate={'Builder':builder,'Rent':rent[-1]}
+            competitorRate={'builder':builder,'rent':rent[-1]}
         elif count>1:
-            competitorRate={'Builder':builder,'Rent':round(sum(rent)/count,2)}
+            competitorRate={'builder':builder,'rent':round(sum(rent)/count,2)}
         if count>0:
             builderApiResponse.append(competitorRate)
     print(builderApiResponse)
+    predictedRent=1000
+    response={'average_competitor_rent':builderApiResponse}
     
     mongoClient.close()
-    return builderApiResponse
+    return response
 
 @app.errorhandler(400)
 def handleBadRequest(error):
